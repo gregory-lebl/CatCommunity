@@ -23,6 +23,13 @@ class DashboardController extends AbstractController
         ]);
     }
 
+    #[Route('/dashboard/add', name: 'dashboard_add')]
+    public function add(): Response
+    {
+        return $this->render('dashboard/add.html.twig');
+    }
+
+
     #[Route('/upload', name: 'upload', methods: "POST")]
     public function upload(UploadService $uploadService,ImageRepository $imageRepository): RedirectResponse
     {

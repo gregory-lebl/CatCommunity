@@ -3,31 +3,22 @@
 {% block title %}Hello DashboardController!{% endblock %}
 
 {% block body %}
-<section class="py-20 h-screen bg-gray-300 px-2">
-    <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-lg">
-        <div class="md:flex">
-            <div class="w-full">
-                <div class="p-4 border-b-2"> <span class="text-lg font-bold text-gray-600">Add documents</span> </div>
-                <div class="p-3">
-                    <form action="{{ path('upload') }}" method="post" enctype="multipart/form-data">
-                        <div class="mb-2">
-                            <label class="text-sm" for="title">Titre de l'image</label>
-                            <input type="text" name="title" id="title" class="h-12 px-3 w-full border-gray-200 border rounded focus:outline-none focus:border-gray-300" required />
-                        </div>
-                        <div class="mb-2">
-                            <label for="image">Attachments</label>
-                            <input type="file" name="image" class="block" id="image" accept="image/jpeg,image/png,image/jpg,image/webp">
-                            <div class="flex justify-between items-center text-gray-400">
-                                <span>Formats de fichier acceptés: jpeg, png, jpg, webp</span>
-                            </div>
-                        </div>
-                        <div class="mt-6 text-center pb-3">
-                            <button type="submit" class="btn-primary">Enregistrer</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <section class="mt-8">
+        <div class="mb-8 flex container mx-auto justify-between pr-5">
+            <h1 class="text-xl text-gray-700">Voici les pitichats de nos utilisateurs <i class="fa-solid fa-2x fa-cat"></i></h1>
+            <a href="{{ path('dashboard_add') }}" class="btn-primary">Ajouter une image</a>
         </div>
-    </div>
-</section>
+        <div class="container mx-auto flex justify-evenly flex-wrap">
+            {% for image in images %}
+                <div class="rounded shadow-lg max-w-fit">
+                    <img class="h-80" src="{{ asset('/upload/cats/' ~ image.name) }}" alt="Chat de {{ image.user.firstname }}">
+                    <div class="pl-4">
+                        <h1 class="text-xl pt-4">{{ image.title }}</h1>
+                        <h2>Auteur: {{ image.user.firstname }} {{ image.user.lastname }}</h2>
+                        <a href="#" class="pt-4">Lire les commentaires</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

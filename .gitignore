@@ -1,5 +1,5 @@
 .idea/
-/public/upload/cats/*
+/public/upload/cats/
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
