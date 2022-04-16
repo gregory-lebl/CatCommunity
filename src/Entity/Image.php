@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
@@ -24,6 +25,14 @@ class Image
 
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $name;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -47,7 +56,7 @@ class Image
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(UserInterface $user): self
     {
         $this->user = $user;
 
@@ -74,6 +83,18 @@ class Image
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
