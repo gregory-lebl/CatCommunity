@@ -4,7 +4,10 @@
 
 @layer components {
     .btn-primary {
-        @apply py-2 px-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 no-underline
+        @apply text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg
+    }
+    .btn-secondary {
+        @apply text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg
     }
     .btn-delete {
         @apply py-2 px-5 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 hover:text-white focus:ring-red-400 focus:ring-opacity-75 no-underline;
