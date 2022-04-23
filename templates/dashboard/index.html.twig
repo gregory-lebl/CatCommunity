@@ -10,8 +10,6 @@
         </div>
         <div class="container px-5 py-10 mx-auto">
             <div class="flex flex-wrap -m-4">
-                {% dump(app.user) %}
-                {% dump(images) %}
                 {% for image in images %}
                     <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
                         <a class="modal-trigger block relative h-48 rounded overflow-hidden" data-modal-toggle="modal-preview-{{ image.id }}">
@@ -28,7 +26,7 @@
                                 </div>
                                 {% if image.user.id == app.user.id %}
                                     <div>
-                                        <a href="{{ path('dashboard_delete',{'id':image.id}) }}">
+                                        <a href="{{ path('delete_picture',{'id':image.id}) }}">
                                             <i class="fa-solid fa-trash-can text-red-600"></i>
                                         </a>
                                     </div>

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cat Community | Profil{% endblock %}
+
+{% block body %}
+    <section class="container mx-auto h-fit">
+        {% for message in app.flashes('success') %}
+            <div class="success-container w-fit mx-auto">
+                <h2 class="success-message">{{ message }}</h2>
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="error-container w-fit mx-auto">
+                <h2 class="error-message">{{ message }}</h2>
+            </div>
+        {% endfor %}
+        <div class="flex justify-around">
+            <div class="user-info border-4 border-indigo-500 p-6 w-fit rounded-xl">
+                <h1 class="text-2xl text-indigo-500">Informations Personnelles</h1>
+                <ul>
+                    <li class="text-xl">Prénom : {{ app.user.firstname }}</li>
+                    <li class="text-xl">Nom : {{ app.user.lastname }}</li>
+                    <li class="text-xl">Compte créé le : {{ app.user.createdAt|format_datetime('full', 'full', locale='fr') }}</li>
+                </ul>
+                <div class="flex justify-between mt-4">
+                    <a href="#" class="text-indigo-500 text-xl">Changer mon mot de passe</a>
+                    <a href="{{ path('delete_user',{'id':app.user.id}) }}" class="text-red-500 text-xl">Supprimer mon compte</a>
+                </div>
+            </div>
+            <div class="user-pictures border-4 border-indigo-500 p-6 w-fit rounded-xl">
+                <h1 class="text-2xl text-indigo-500">Statistiques</h1>
+                <p class="text-xl">Nombre d'images partagées : <span class="text-indigo-500">{{ images|length }}</span></p>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="overflow-hidden">
+                        <table class="min-w-full">
+                            <thead class="border-b">
+                            <tr>
+                                <th scope="col" class="font-medium text-indigo-500 text-xl px-6 py-4 text-left">
+                                    Titre de l'image
+                                </th>
+                                <th scope="col" class="font-medium text-indigo-500 text-xl px-6 py-4 text-left">
+                                    Date de publication
+                                </th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for image in images %}
+                                <tr class="border-b">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ image.title }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ image.createdAt|format_datetime(locale='fr') }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <a href="{{ path('delete_picture', {'id':image.id}) }}">
+                                            <i class="fa-solid fa-xl fa-trash-can text-red-600"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

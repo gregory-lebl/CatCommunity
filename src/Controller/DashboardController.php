@@ -27,13 +27,6 @@ class DashboardController extends AbstractController
         return $this->render('dashboard/add.html.twig');
     }
 
-    #[Route('/dashboard/delete/{id}', name: 'dashboard_delete')]
-    public function delete(Image $image, ImageRepository $imageRepository): Response
-    {
-        $imageRepository->remove($image);
-        return $this->redirectToRoute('dashboard');
-    }
-
     #[Route('/upload', name: 'upload', methods: "POST")]
     public function upload(UploadService $uploadService,ImageRepository $imageRepository): RedirectResponse
     {
