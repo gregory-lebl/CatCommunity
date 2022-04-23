@@ -35,10 +35,12 @@ class UserController extends AbstractController
 
                 if (!empty($repository->findBy(['email' => $email]))){
                     $this->addFlash('error', 'Adresse mail déjà utilisée.');
-                    return $this->redirectToRoute('home');
+                    return $this->redirectToRoute('user_register');
                 }else{
                     $manager->persist($newUser);
                     $manager->flush();
+                    $this->addFlash('success', 'Votre compte a bien été créé, vous pouvez maintenant vous connecter.');
+                    return $this->redirectToRoute('user_login');
                 }
             }
         }
@@ -65,5 +67,14 @@ class UserController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
+    }
+
+    #[Route('/logout', name: 'user_profil', methods: 'GET')]
+    public function profil(){
+        if (is_null($this->getUser())){
+            $this->redirectToRoute('home');
+        }
+
+        dd($this->getUser());
     }
 }

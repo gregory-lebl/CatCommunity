@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Repository\CommentaireRepository;
 use App\Repository\ImageRepository;
 use App\Service\UploadService;
@@ -15,11 +16,8 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'dashboard')]
     public function index(ImageRepository $imageRepository, CommentaireRepository $commentaireRepository): Response
     {
-        $currentUser = $this->getUser();
-        $userId = $currentUser->getId();
-
         return $this->render('dashboard/index.html.twig',[
-            'images' => $imageRepository->findBy(['user' => $userId])
+            'images' => $imageRepository->findAll()
         ]);
     }
 
@@ -29,6 +27,12 @@ class DashboardController extends AbstractController
         return $this->render('dashboard/add.html.twig');
     }
 
+    #[Route('/dashboard/delete/{id}', name: 'dashboard_delete')]
+    public function delete(Image $image, ImageRepository $imageRepository): Response
+    {
+        $imageRepository->remove($image);
+        return $this->redirectToRoute('dashboard');
+    }
 
     #[Route('/upload', name: 'upload', methods: "POST")]
     public function upload(UploadService $uploadService,ImageRepository $imageRepository): RedirectResponse
