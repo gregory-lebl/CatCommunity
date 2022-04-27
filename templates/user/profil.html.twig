@@ -29,7 +29,11 @@
             </div>
             <div class="user-pictures border-4 border-indigo-500 p-6 w-fit rounded-xl">
                 <h1 class="text-2xl text-indigo-500">Statistiques</h1>
-                <p class="text-xl">Nombre d'images partagées : <span class="text-indigo-500">{{ images|length }}</span></p>
+                {% if images is defined and images is not empty %}
+                    <p class="text-xl">Nombre d'images partagées : <span class="text-indigo-500">{{ images|length }}</span></p>
+                {% else %}
+                    <p class="text-xl">Nombre d'images partagées : <span class="text-indigo-500">0</span></p>
+                {% endif %}
             </div>
         </div>
         {% if images is defined and images is not empty %}
