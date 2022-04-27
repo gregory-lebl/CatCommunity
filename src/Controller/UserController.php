@@ -70,7 +70,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/logout', name: 'user_profil', methods: 'GET')]
+    #[Route('/profil', name: 'user_profil', methods: 'GET')]
     public function profil(ImageRepository $imageRepository){
         if (is_null($this->getUser())){
             $this->redirectToRoute('home');
