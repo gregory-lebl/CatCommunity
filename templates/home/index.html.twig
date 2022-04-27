@@ -9,8 +9,12 @@
             <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Partagez vos passion des chats !</h1>
             <p class="mb-8 leading-relaxed">Rejoignez une communauté de fans de chats pour partagez les meilleurs moments de votre petite boule de poil</p>
             <div class="flex justify-center">
-                <a href="{{ path('user_register') }}" class="btn-primary">Créer un compte</a>
-                <a href="{{ path('user_login') }}" class="ml-4 inline-flex btn-secondary">Se connecter</a>
+                {% if app.user %}
+                    <a href="{{ path('dashboard') }}" class="btn-primary">Voir les photos de la communauté</a>
+                {% else %}
+                    <a href="{{ path('user_register') }}" class="btn-primary">Créer un compte</a>
+                    <a href="{{ path('user_login') }}" class="ml-4 inline-flex btn-secondary">Se connecter</a>
+                {% endif %}
             </div>
         </div>
         <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">

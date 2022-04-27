@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\ImageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,12 +70,14 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/logout', name: 'user_profil', methods: 'GET')]
-    public function profil(){
+    #[Route('/profil', name: 'user_profil', methods: 'GET')]
+    public function profil(ImageRepository $imageRepository){
         if (is_null($this->getUser())){
             $this->redirectToRoute('home');
         }
 
-        dd($this->getUser());
+        return $this->render('user/profil.html.twig',[
+            'images' => $imageRepository->findBy(['user' => $this->getUser()]),
+        ]);
     }
 }
