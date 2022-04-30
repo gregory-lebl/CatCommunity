@@ -7,7 +7,6 @@
     <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-lg">
         <div class="md:flex">
             <div class="w-full">
-                <div class="p-4 border-b-2"> <span class="text-lg font-bold text-gray-600">Add documents</span> </div>
                 <div class="p-3">
                     <form action="{{ path('upload') }}" method="post" enctype="multipart/form-data">
                         <div class="mb-2">
@@ -15,7 +14,7 @@
                             <input type="text" name="title" id="title" class="h-12 px-3 w-full border-gray-200 border rounded focus:outline-none focus:border-gray-300" required />
                         </div>
                         <div class="mb-2">
-                            <label for="image">Attachments</label>
+                            <label for="image">Pièce-jointe</label>
                             <input type="file" name="image" class="block" id="image" accept="image/jpeg,image/png,image/jpg,image/webp">
                             <div class="flex justify-between items-center text-gray-400">
                                 <span>Formats de fichier acceptés: jpeg, png, jpg, webp</span>
