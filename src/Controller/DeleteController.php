@@ -16,13 +16,12 @@ class DeleteController extends AbstractController
     public function deletePicture(Image $image, ImageRepository $imageRepository): Response
     {
         if ($image->getUser() == $this->getUser()){
-            dd('user correct');
+            $imageRepository->remove($image);
+            return $this->redirectToRoute('dashboard');
         }else{
-            dd('user incorrect');
+            $this->addFlash("error", "Vous ne pouvez pas supprimmer cette image");
+            return $this->redirectToRoute('dashboard');
         }
-
-        $imageRepository->remove($image);
-        return $this->redirectToRoute('dashboard');
     }
 
     #[Route('/delete/user/{id}', name: 'delete_user')]
