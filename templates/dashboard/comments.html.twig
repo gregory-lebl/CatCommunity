@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1 class="text-3xl font-bold text-indigo-500 text-center mb-4 xl:text-left 2xl:container 2xl:mx-auto">Photo de {{ image.user.firstname }} {{ image.user.lastname }}</h1>
+    <img class="w-full mb-3 2xl:max-w-fit 2xl:mx-auto" src="{{ asset('/upload/cats/' ~ image.name)}}" alt="Image de chat">
+    <div class="lg:grid lg:grid-cols-2 2xl:grid-cols-3">
+        {% for comment in comments %}
+            <div class="w-11/12 mx-auto border border-2 border-indigo-500 py-2 px-2 rounded-xl mb-4">
+                <h2 class="text-indigo-500 text-2xl">{{ comment.content }}</h2>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-base">Auteur: {{ comment.user.firstname }} {{ comment.user.lastname }}</p>
+                        <p class="text-base">Publié le {{ comment.createdAt|date }}</p>
+                    </div>
+                    {% if app.user.id == comment.user.id %}
+                        <a href="#" class="btn-delete">Supprimer</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+

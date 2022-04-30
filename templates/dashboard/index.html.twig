@@ -21,7 +21,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <h3 class="picture-author text-gray-500 text-base title-font mb-1">Auteur : {{ image.user.firstname }} {{ image.user.lastname }}</h3>
-                                        <a href="#" class="text-indigo-500 hover:cursor-not-allowed">
+                                        <a href="{{ path('dashboard_comments',{'slug': image.slug}) }}" class="text-indigo-500 hover:cursor-pointer">
                                             <p class="mt-1">Lire les commentaires</p>
                                         </a>
                                     </div>

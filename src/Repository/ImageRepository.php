@@ -45,6 +45,16 @@ class ImageRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Image[]
+     */
+    public function findByMostRecent() {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.id','DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Image[] Returns an array of Image objects
     //  */

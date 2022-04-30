@@ -17,7 +17,7 @@ class DashboardController extends AbstractController
     public function index(ImageRepository $imageRepository, CommentaireRepository $commentaireRepository): Response
     {
         return $this->render('dashboard/index.html.twig',[
-            'images' => $imageRepository->findAll()
+            'images' => $imageRepository->findByMostRecent()
         ]);
     }
 
@@ -25,6 +25,15 @@ class DashboardController extends AbstractController
     public function add(): Response
     {
         return $this->render('dashboard/add.html.twig');
+    }
+
+    #[Route('/dashboard/{slug}', name: 'dashboard_comments')]
+    public function comments(Image $image, CommentaireRepository $commentaireRepository): Response
+    {
+        return $this->render('dashboard/comments.html.twig',[
+            'image' => $image,
+            'comments' => $commentaireRepository->findBy(['image' => $image->getId()])
+        ]);
     }
 
     #[Route('/upload', name: 'upload', methods: "POST")]

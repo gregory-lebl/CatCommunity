@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Commentaire;
 use App\Entity\Image;
 use App\Entity\User;
 use App\Repository\UserRepository;
