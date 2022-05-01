@@ -12,55 +12,28 @@
             {% if images is defined and images is not empty %}
                 <div class="flex flex-wrap -m-4">
                     {% for image in images %}
-                        <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                            <a class="modal-trigger block relative h-48 rounded overflow-hidden" data-modal-toggle="modal-preview-{{ image.id }}">
-                                <img alt="Chat de {{ image.user.firstname }} {{ image.user.lastname }}" class="cat-picture object-cover object-center w-full h-full block cursor-pointer duration-300" src="{{ asset('/upload/cats/' ~ image.name) }}">>
-                            </a>
-                            <div class="mt-4">
-                                <h2 class="text-gray-900 title-font text-lg font-medium">{{ image.title }}</h2>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <h3 class="picture-author text-gray-500 text-base title-font mb-1">Auteur : {{ image.user.firstname }} {{ image.user.lastname }}</h3>
-                                        <a href="{{ path('dashboard_comments',{'slug': image.slug}) }}" class="text-indigo-500 hover:cursor-pointer">
-                                            <p class="mt-1">Lire les commentaires</p>
-                                        </a>
-                                    </div>
-                                    {% if image.user.id == app.user.id %}
+                        <a href="{{ path('dashboard_comments',{'slug': image.slug}) }}" target="_blank">
+                            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                                <div class="block relative h-48 rounded">
+                                    <img alt="Chat de {{ image.user.firstname }} {{ image.user.lastname }}" class="cat-picture object-cover object-center w-full h-full block cursor-pointer duration-300" src="{{ asset('/upload/cats/' ~ image.name) }}">
+                                </div>
+                                <div class="mt-4">
+                                    <h2 class="text-gray-900 title-font text-lg font-medium">{{ image.title }}</h2>
+                                    <div class="flex items-center justify-between">
                                         <div>
-                                            <a href="{{ path('delete_picture',{'id':image.id}) }}">
-                                                <i class="fa-solid fa-trash-can text-red-600"></i>
-                                            </a>
+                                            <h3 class="picture-author text-gray-500 text-base title-font mb-1">Auteur : {{ image.user.firstname }} {{ image.user.lastname }}</h3>
                                         </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Extra Large Modal -->
-                        <div id="modal-preview-{{ image.id }}" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full max-w-screen max-h-scren">
-                            <div class="relative p-4 w-full max-w-7xl h-80 md:h-auto">
-                                <!-- Modal content -->
-                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                    <!-- Modal header -->
-                                    <div class="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
-                                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                                            {{ image.title }}
-                                        </h3>
-                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="modal-preview-{{ image.id }}">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                        </button>
-                                    </div>
-                                    <!-- Modal body -->
-                                    <div>
-                                        <img src="{{ asset('/upload/cats/' ~ image.name) }}" class="w-80" alt="Chat de {{ image.user.firstname }} {{ image.user.lastname }}">
-                                    </div>
-                                    <!-- Modal footer -->
-                                    <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                                        <button data-modal-toggle="modal-preview-{{ image.id }}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                                        <button data-modal-toggle="modal-preview-{{ image.id }}" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                                        {% if image.user.id == app.user.id %}
+                                            <div>
+                                                <a href="{{ path('delete_picture',{'id':image.id}) }}">
+                                                    <i class="fa-solid fa-trash-can text-red-600"></i>
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     {% endfor %}
                 </div>
             {% else %}
