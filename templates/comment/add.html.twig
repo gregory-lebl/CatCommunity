@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <form action="#" method="post">
+        <input type="text" name="content" minlength="6" maxlength="50" required>
+        <input type="hidden" name="token" value="{{ csrf_token('comment-add') }}">
+        <button type="submit">Valider</button>
+    </form>
+{% endblock %}
+

@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Commentaire;
 use App\Entity\Image;
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -39,7 +40,7 @@ class CatFixtures extends Fixture
             $title = "Chat numéro " . $i;
             $image = new Image();
             $image->setUser($user);
-            $image->setName("cat62641d89d46a1.jpg");
+            $image->setName("cat6272beff244e8.jpg");
             $image->setSlug($slugify->slugify($title));
             $image->setTitle($title);
 
