@@ -17,14 +17,19 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'dashboard')]
     public function index(ImageRepository $imageRepository, Request $request): Response
     {
-        $page = $request->get('p', 1);
-        $imagePerPage = 12;
-        $offset = $imagePerPage * $page;
-        $images = $imageRepository->findByMostRecent($imagePerPage,$offset);
+        $page = $request->get('p', null);
+        $picturesPerPage = 12;
+        if ($request->get('p')){
+            $offset = $picturesPerPage * $page;
+            $images = $imageRepository->findByMostRecent($picturesPerPage,$offset);
+        }else{
+            $images = $imageRepository->findByMostRecent($picturesPerPage);
+        }
 
         return $this->render('dashboard/index.html.twig',[
             'images' => $images,
-            'count_image' => count($images)
+            'count_image' => count($images),
+            'page' => $page
         ]);
     }
 
