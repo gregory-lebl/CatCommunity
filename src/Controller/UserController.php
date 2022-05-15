@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\ImageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,13 +72,18 @@ class UserController extends AbstractController
     }
 
     #[Route('/profil', name: 'user_profil', methods: 'GET')]
-    public function profil(ImageRepository $imageRepository){
+    public function profil(ImageRepository $imageRepository, PaginatorInterface $paginator, Request $request){
         if (is_null($this->getUser())){
             $this->redirectToRoute('home');
         }
 
+        $allPictures = $imageRepository->findBy(['user' => $this->getUser()]);
+        $countAllPictures = count($allPictures);
+        $pictures = $paginator->paginate($allPictures,intval($request->get('page', 1)),12);
+
         return $this->render('user/profil.html.twig',[
-            'images' => $imageRepository->findBy(['user' => $this->getUser()]),
+            'pictures' => $pictures,
+            'count_all_pictures' => $countAllPictures
         ]);
     }
 }
