@@ -6,6 +6,7 @@ use App\Entity\Image;
 use App\Repository\CommentaireRepository;
 use App\Repository\ImageRepository;
 use App\Service\UploadService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,16 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     #[Route('/dashboard', name: 'dashboard')]
-    public function index(ImageRepository $imageRepository, Request $request): Response
+    public function index(ImageRepository $imageRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $page = $request->get('p', 1);
-        $imagePerPage = 12;
-        $offset = $imagePerPage * $page;
-        $images = $imageRepository->findByMostRecent($imagePerPage,$offset);
+        $allPictures = $imageRepository->findAll();
+
+        $images = $paginator->paginate($allPictures,intval($request->get('page', 1)),12);
 
         return $this->render('dashboard/index.html.twig',[
             'images' => $images,
-            'count_image' => count($images)
         ]);
     }
 
@@ -35,11 +34,15 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/dashboard/{slug}', name: 'dashboard_comments')]
-    public function comments(Image $image, CommentaireRepository $commentaireRepository): Response
+    public function comments(Image $image, CommentaireRepository $commentaireRepository, Request $request, PaginatorInterface $paginator ): Response
     {
+        $allComments = $commentaireRepository->findBy(['image' => $image->getId()]);
+
+        $comments = $paginator->paginate($allComments,intval($request->get('page', 1)),12);
+
         return $this->render('dashboard/comments.html.twig',[
             'image' => $image,
-            'comments' => $commentaireRepository->findBy(['image' => $image->getId()])
+            'comments' => $comments
         ]);
     }
 

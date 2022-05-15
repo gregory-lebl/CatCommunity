@@ -33,7 +33,7 @@ class UploadService
                 return false;
             }
 
-            $uploadDirectory = $_SERVER["DOCUMENT_ROOT"] . "upload/cats/";
+            $uploadDirectory = $_SERVER["DOCUMENT_ROOT"] . "/upload/cats/";
             if (!is_dir($uploadDirectory)){
                 mkdir($uploadDirectory,0777,true);
             }
