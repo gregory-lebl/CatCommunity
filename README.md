@@ -1,6 +1,5 @@
 ## Cat Community
 Partagez des photos de votre chat au monde entier.
-### Si vous êtes un recruteur, merci d'utiliser la branche "test-recruteur" car elle contient déjà une image ce qui vous fera gagner du temps.
 
 ## Choix techniques
 - PHP et MySQL car ce sont des technologies solides qui ont fait leurs preuves
