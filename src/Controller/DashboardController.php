@@ -6,6 +6,7 @@ use App\Entity\Image;
 use App\Repository\CommentaireRepository;
 use App\Repository\ImageRepository;
 use App\Service\UploadService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,21 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     #[Route('/dashboard', name: 'dashboard')]
-    public function index(ImageRepository $imageRepository, Request $request): Response
+    public function index(ImageRepository $imageRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $page = $request->get('p', null);
-        $picturesPerPage = 12;
-        if ($request->get('p')){
-            $offset = $picturesPerPage * $page;
-            $images = $imageRepository->findByMostRecent($picturesPerPage,$offset);
-        }else{
-            $images = $imageRepository->findByMostRecent($picturesPerPage);
-        }
+        $allPictures = $imageRepository->findAll();
+
+        $images = $paginator->paginate($allPictures,intval($request->get('page', 1)),12);
 
         return $this->render('dashboard/index.html.twig',[
             'images' => $images,
-            'count_image' => count($images),
-            'page' => $page
         ]);
     }
 

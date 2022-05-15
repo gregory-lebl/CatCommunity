@@ -36,12 +36,9 @@
                         </a>
                     {% endfor %}
                 </div>
-                <div class="mt-4">
-                    {% if page is not null %}
-                        <a class="btn-primary mx-auto" href="{{ path('dashboard', {'p': page + 1 }) }}">En voir plus</a>
-                    {% else %}
-                        <a class="btn-primary mx-auto" href="{{ path('dashboard', {'p': 2 }) }}">En voir plus</a>
-                    {% endif %}
+                <div>
+                    {% do images.setPageRange(3) %}
+                    {{ knp_pagination_render(images,'shared/pagination.html.twig') }}
                 </div>
             {% else %}
                 <h1>Aucune image :(</h1>
