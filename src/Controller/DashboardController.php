@@ -34,11 +34,15 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/dashboard/{slug}', name: 'dashboard_comments')]
-    public function comments(Image $image, CommentaireRepository $commentaireRepository): Response
+    public function comments(Image $image, CommentaireRepository $commentaireRepository, Request $request, PaginatorInterface $paginator ): Response
     {
+        $allComments = $commentaireRepository->findBy(['image' => $image->getId()]);
+
+        $comments = $paginator->paginate($allComments,intval($request->get('page', 1)),12);
+
         return $this->render('dashboard/comments.html.twig',[
             'image' => $image,
-            'comments' => $commentaireRepository->findBy(['image' => $image->getId()])
+            'comments' => $comments
         ]);
     }
 
