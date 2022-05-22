@@ -12,31 +12,39 @@
             <h2 class="success-message">{{ message }}</h2>
         </div>
     {% endfor %}
-    <img class="w-full mb-3 2xl:max-w-fit 2xl:mx-auto" src="{{ asset('/upload/cats/' ~ image.name)}}" alt="Image de chat">
+    <img class="w-full mb-3 2xl:max-w-fit 2xl:mx-auto rounded" src="{{ asset('/upload/cats/' ~ image.name)}}" alt="Image de chat">
     <div class="flex justify-between container mx-auto mb-6 items-center">
         <h3 class="text-2xl text-indigo-500 font-bold">Commentaires de la communauté</h3>
         <a href="{{ path('comment_add',{'slug': image.slug}) }}" class="btn-primary">Ajouter un commentaire</a>
     </div>
-    <div class="lg:grid lg:grid-cols-2 2xl:grid-cols-3">
-        {% for comment in comments %}
-            <div class="w-11/12 mx-auto border border-2 border-indigo-500 py-2 px-2 rounded-xl mb-4">
-                <h2 class="text-indigo-500 text-2xl">{{ comment.content }}</h2>
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-base">Auteur: {{ comment.user.firstname }} {{ comment.user.lastname }}</p>
-                        <p class="text-base">Publié le {{ comment.createdAt|date }}</p>
+    {% if comments is not empty %}
+        <div class="lg:grid lg:grid-cols-2 2xl:grid-cols-3">
+            {% for comment in comments %}
+                <div class="w-11/12 mx-auto border border-2 border-indigo-500 py-2 px-2 rounded-xl mb-4">
+                    <h2 class="text-indigo-500 text-2xl">{{ comment.content }}</h2>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-base">Auteur: {{ comment.user.firstname }} {{ comment.user.lastname }}</p>
+                            <p class="text-base">Publié le {{ comment.createdAt|date }}</p>
+                        </div>
+                        {% if app.user.id == comment.user.id %}
+                            <a href="#"><i class="fa-solid fa-xl fa-trash-can text-red-600"></i></a>
+                        {% endif %}
                     </div>
-                    {% if app.user.id == comment.user.id %}
-                        <a href="#" class="btn-delete">Supprimer</a>
-                    {% endif %}
                 </div>
+            {% endfor %}
+            <div>
+                {% if comments|length > 12 %}
+                    {% do comments.setPageRange(3) %}
+                    {{ knp_pagination_render(comments,'shared/pagination.html.twig') }}
+                {% endif %}
             </div>
-        {% endfor %}
-        <div>
-            {% do comments.setPageRange(3) %}
-            {{ knp_pagination_render(comments,'shared/pagination.html.twig') }}
         </div>
-    </div>
+    {% else %}
+        <div class="container my-0 mx-auto">
+            <h1 class="text-xl">Aucun commentaire pour cette image</h1>
+        </div>
+    {% endif %}
 </section>
 {% endblock %}
 

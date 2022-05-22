@@ -18,7 +18,7 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'dashboard')]
     public function index(ImageRepository $imageRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $allPictures = $imageRepository->findAll();
+        $allPictures = $imageRepository->findByMostRecent();
 
         $images = $paginator->paginate($allPictures,intval($request->get('page', 1)),12);
 
