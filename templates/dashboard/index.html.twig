@@ -15,7 +15,7 @@
                         <a href="{{ path('dashboard_comments',{'slug': image.slug}) }}" target="_blank">
                             <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
                                 <div class="block relative h-48 rounded">
-                                    <img alt="Chat de {{ image.user.firstname }} {{ image.user.lastname }}" class="cat-picture object-cover object-center w-full h-full block cursor-pointer duration-300" src="{{ asset('/upload/cats/' ~ image.name) }}">
+                                    <img alt="Chat de {{ image.user.firstname }} {{ image.user.lastname }}" class="cat-picture object-cover object-center w-full h-full block cursor-pointer rounded" src="{{ asset('/upload/cats/' ~ image.name) }}">
                                 </div>
                                 <div class="mt-4">
                                     <h2 class="text-gray-900 title-font text-lg font-medium">{{ image.title }}</h2>
@@ -36,10 +36,12 @@
                         </a>
                     {% endfor %}
                 </div>
-                <div>
-                    {% do images.setPageRange(3) %}
-                    {{ knp_pagination_render(images,'shared/pagination.html.twig') }}
-                </div>
+                {% if images|length >= 12 %}
+                    <div>
+                        {% do images.setPageRange(3) %}
+                        {{ knp_pagination_render(images,'shared/pagination.html.twig') }}
+                    </div>
+                {% endif %}
             {% else %}
                 <h1>Aucune image :(</h1>
             {% endif %}

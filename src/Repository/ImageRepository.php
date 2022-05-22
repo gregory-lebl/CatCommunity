@@ -48,11 +48,10 @@ class ImageRepository extends ServiceEntityRepository
     /**
      * @return Image[]
      */
-    public function findByMostRecent(int $limit = null, int $offset = null) {
+    public function findByMostRecent(): array
+    {
         return $this->createQueryBuilder('o')
             ->orderBy('o.id','DESC')
-            ->setMaxResults($limit)
-            ->setFirstResult($offset)
             ->getQuery()
             ->getResult();
     }
