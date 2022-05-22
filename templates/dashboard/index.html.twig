@@ -24,16 +24,16 @@
                                             <h3 class="picture-author text-gray-500 text-base title-font mb-1">Auteur : {{ image.user.firstname }} {{ image.user.lastname }}</h3>
                                         </div>
                                         {% if image.user.id == app.user.id %}
-                                        <div>
-                                            <a href="{{ path('delete_picture',{'id':image.id}) }}">
-                                                <i class="fa-solid fa-trash-can text-red-600"></i>
-                                            </a>
-                                        </div>
+                                            <div>
+                                                <a href="{{ path('delete_picture',{'id':image.id}) }}">
+                                                    <i class="fa-solid fa-trash-can text-red-600"></i>
+                                                </a>
+                                            </div>
                                         {% endif %}
                                     </div>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     {% endfor %}
                 </div>
                 {% if images|length >= 12 %}
