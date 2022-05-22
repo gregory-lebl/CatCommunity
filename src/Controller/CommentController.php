@@ -17,7 +17,7 @@ class CommentController extends AbstractController
     {
         $token = $request->request->get('token');
         if ($request->isMethod("POST") && $this->isCsrfTokenValid('comment-add', $token)){
-            $content = $_POST["content"];
+            $content = $_POST["comment"];
             $comment = new Commentaire();
             $comment->setUser($this->getUser());
             $comment->setImage($image);
