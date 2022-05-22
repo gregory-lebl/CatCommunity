@@ -12,8 +12,8 @@
             {% if images is defined and images is not empty %}
                 <div class="flex flex-wrap -m-4">
                     {% for image in images %}
-                        <a href="{{ path('dashboard_comments',{'slug': image.slug}) }}" target="_blank">
-                            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                        <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                            <a href="{{ path('dashboard_comments',{'slug': image.slug}) }}" target="_blank">
                                 <div class="block relative h-48 rounded">
                                     <img alt="Chat de {{ image.user.firstname }} {{ image.user.lastname }}" class="cat-picture object-cover object-center w-full h-full block cursor-pointer rounded" src="{{ asset('/upload/cats/' ~ image.name) }}">
                                 </div>
