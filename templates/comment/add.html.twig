@@ -5,10 +5,23 @@
 {% endblock %}
 
 {% block body %}
-    <form action="#" method="post">
-        <input type="text" name="content" minlength="6" maxlength="50" required>
-        <input type="hidden" name="token" value="{{ csrf_token('comment-add') }}">
-        <button type="submit">Valider</button>
-    </form>
+    <div class="h-screen sm:bg-red-400 md:bg-green-400 lg:bg-yellow-400 py-2 px-2">
+        <form action="#" method="post" class="sm:w-full h-fit lg:w-1/2 lg:my-0 lg:mx-auto">
+            {% for message in app.flashes('success') %}
+                <div class="success-container">
+                    <h2 class="success-message">{{ message }}</h2>
+                </div>
+            {% endfor %}
+            {% if error is defined %}
+                <div class="error-container">
+                    <h2 class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</h2>
+                </div>
+            {% endif %}
+            <label class="block text-gray-700 text-sm font-bold mb-2 text-2xl" for="comment">Votre commentaire</label>
+            <textarea name="comment" class="text-area w-full shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="comment" rows="5"></textarea>
+            <input type="hidden" name="token" value="{{ csrf_token('comment-add') }}">
+            <button type="submit" class="btn btn-primary">Valider</button>
+        </form>
+    </div>
 {% endblock %}
 

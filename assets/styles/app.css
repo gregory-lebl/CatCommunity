@@ -25,3 +25,7 @@
         @apply text-white
     }
 }
+
+.text-area{
+    resize: none;
+}
