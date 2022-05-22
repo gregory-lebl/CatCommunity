@@ -12,8 +12,9 @@
             {% if images is defined and images is not empty %}
                 <div class="flex flex-wrap -m-4">
                     {% for image in images %}
-                        <a href="{{ path('dashboard_comments',{'slug': image.slug}) }}" target="_blank">
-                            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                        {% dump(image) %}
+                        <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                            <a href="{{ path('dashboard_comments',{'slug': image.slug}) }}" target="_blank">
                                 <div class="block relative h-48 rounded">
                                     <img alt="Chat de {{ image.user.firstname }} {{ image.user.lastname }}" class="cat-picture object-cover object-center w-full h-full block cursor-pointer rounded" src="{{ asset('/upload/cats/' ~ image.name) }}">
                                 </div>
@@ -24,16 +25,16 @@
                                             <h3 class="picture-author text-gray-500 text-base title-font mb-1">Auteur : {{ image.user.firstname }} {{ image.user.lastname }}</h3>
                                         </div>
                                         {% if image.user.id == app.user.id %}
-                                            <div>
-                                                <a href="{{ path('delete_picture',{'id':image.id}) }}">
-                                                    <i class="fa-solid fa-trash-can text-red-600"></i>
-                                                </a>
-                                            </div>
+                                        <div>
+                                            <a href="{{ path('delete_picture',{'id':image.id}) }}">
+                                                <i class="fa-solid fa-trash-can text-red-600"></i>
+                                            </a>
+                                        </div>
                                         {% endif %}
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     {% endfor %}
                 </div>
                 {% if images|length >= 12 %}
