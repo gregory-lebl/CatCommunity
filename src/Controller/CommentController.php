@@ -16,18 +16,23 @@ class CommentController extends AbstractController
     public function add(Image $image, Request $request, EntityManagerInterface $manager): Response
     {
         $token = $request->request->get('token');
-        if ($request->isMethod("POST") && $this->isCsrfTokenValid('comment-add', $token)){
-            $content = $_POST["comment"];
-            $comment = new Commentaire();
-            $comment->setUser($this->getUser());
-            $comment->setImage($image);
-            $comment->setContent($content);
+        if ($request->isMethod("POST")){
+            if ($this->isCsrfTokenValid('comment-add', $token)){
+                $content = $_POST["comment"];
+                $comment = new Commentaire();
+                $comment->setUser($this->getUser());
+                $comment->setImage($image);
+                $comment->setContent($content);
 
-            $manager->persist($comment);
-            $manager->flush();
+                $manager->persist($comment);
+                $manager->flush();
 
-            $this->addFlash('success', 'Votre commentaire a bien été ajouté');
-            return $this->redirectToRoute('dashboard_comments', ["slug" => $image->getSlug()]);
+                $this->addFlash('success', 'Votre commentaire a bien été ajouté');
+                return $this->redirectToRoute('dashboard_comments', ["slug" => $image->getSlug()]);
+            }else{
+                $this->addFlash('error', 'Token CSRF invalide.');
+                return $this->redirectToRoute('comment_add',["slug" => $image->getSlug()]);
+            }
 
         }
         return $this->render('comment/add.html.twig');
