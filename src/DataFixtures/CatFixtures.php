@@ -40,7 +40,7 @@ class CatFixtures extends Fixture
             $title = "Chat numéro " . $i;
             $image = new Image();
             $image->setUser($user);
-            $image->setName("cat6280c6dc6bfdb.webp");
+            $image->setName("cat628a4b26d6ed0.jpg");
             $image->setSlug($slugify->slugify($title));
             $image->setTitle($title);
 
