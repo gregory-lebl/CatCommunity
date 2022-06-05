@@ -86,7 +86,10 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "symfony console doctrine:database:create",
+            "symfony console d:m:m",
+            "symfony console doctrine:fixtures:load"
         ],
         "post-update-cmd": [
             "@auto-scripts"
